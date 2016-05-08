@@ -6,7 +6,7 @@ url = "http://www.rkt.no/gt/google_transit.zip"
 
 print "Fetching new stop list from", url
 r = requests.get(url)
-if r.statuscode = 200:
+if r.statuscode == 200:
     print "File downloaded. Processing..."
     new, changed = 0 ,0
     with closing(r), zipfile.ZipFile(io.BytesIO(r.content)) as archive:
