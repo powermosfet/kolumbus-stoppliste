@@ -6,6 +6,7 @@ import io, requests, zipfile
 from contextlib import closing
 
 from gtfs.models import Stop
+from django.core.exceptions import ObjectDoesNotExist
 
 url = "http://www.rkt.no/gt/google_transit.zip"
 
@@ -22,7 +23,7 @@ if r.status_code == 200:
             stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_url = s.split(",")
             try: 
                 stop = Stop.objects.get(pk = int(stop_id))
-            except DoesNotExist:
+            except ObjectDoesNotExist:
                 stop = Stop()
                 new += 1
             else:
