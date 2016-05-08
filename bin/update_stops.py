@@ -1,5 +1,6 @@
-import os
+import os, django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "stoppliste.settings")
+django.setup()
 
 import io, requests, zipfile
 from contextlib import closing
