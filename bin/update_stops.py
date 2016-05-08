@@ -1,5 +1,9 @@
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "stoppliste.settings")
+
 import io, requests, zipfile
 from contextlib import closing
+
 from gtfs.models import Stop
 
 url = "http://www.rkt.no/gt/google_transit.zip"
