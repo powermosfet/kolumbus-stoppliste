@@ -16,17 +16,17 @@ if r.statuscode == 200:
         for s in iterstops:
             stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_url = s.split(",")
             try: 
-                stop = Stop.objects.get(pk = stop_id)
+                stop = Stop.objects.get(pk = int(stop_id))
             except DoesNotExist:
                 stop = Stop()
                 new += 1
             else:
                 changed += 1
-            s.stop_id   = stop_id
+            s.stop_id   = int(stop_id)
             s.stop_name = stop_name
             s.stop_desc = stop_desc
-            s.stop_lat  = stop_lat
-            s.stop_lon  = stop_lon
+            s.stop_lat  = float(stop_lat)
+            s.stop_lon  = float(stop_lon)
             s.stop_url  = stop_url            
             s.save()
     print "Done processing file.", new, "new,", changed, "changed."
