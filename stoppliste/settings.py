@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     #'django.contrib.staticfiles',
-    'regtopp.apps.RegtoppConfig',
+    # 'regtopp.apps.RegtoppConfig',
 ]
 
 MIDDLEWARE_CLASSES = [
