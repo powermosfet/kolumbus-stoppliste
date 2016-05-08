@@ -29,6 +29,6 @@ if r.statuscode == 200:
             s.stop_lon  = stop_lon
             s.stop_url  = stop_url            
             s.save()
-    print "Done processing file.", new "new,", changed, "changed."
+    print "Done processing file.", new, "new,", changed, "changed."
 else:
     print "Error fetching file:", r.statuscode
