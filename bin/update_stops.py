@@ -28,13 +28,13 @@ if r.status_code == 200:
                 new += 1
             else:
                 changed += 1
-            s.stop_id   = int(stop_id)
-            s.stop_name = stop_name
-            s.stop_desc = stop_desc
-            s.stop_lat  = float(stop_lat)
-            s.stop_lon  = float(stop_lon)
-            s.stop_url  = stop_url            
-            s.save()
+            stop.stop_id   = int(stop_id)
+            stop.stop_name = stop_name
+            stop.stop_desc = stop_desc
+            stop.stop_lat  = float(stop_lat)
+            stop.stop_lon  = float(stop_lon)
+            stop.stop_url  = stop_url            
+            stop.save()
     print "Done processing file.", new, "new,", changed, "changed."
 else:
     print "Error fetching file:", r.status_code
