@@ -9,3 +9,8 @@ class Stop(models.Model):
     stop_lat  = models.FloatField()
     stop_lon  = models.FloatField()
     stop_url  = models.CharField(max_length = 128)
+
+    def __unicode__(self):
+        return "{}: {} ({})".format(self.stop_id, self.stop_name, self.stop_desc) \
+            if self.stop_desc else \
+           "{}: {}".format(self.stop_id, self.stop_name)
