@@ -18,5 +18,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/gtfs/', include('stoppliste.gtfs.urls')),
+    url(r'^api/gtfs/', include('gtfs.urls')),
 ]
