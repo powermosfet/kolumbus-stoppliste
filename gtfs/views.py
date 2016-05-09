@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from gtfs.models import Stop
-from flatjsonserializer import FlatJsonSerializer
+from serializers.flatjsonserializer import FlatJsonSerializer
 
 def stop_list(r):
     s = FlatJsonSerializer()
