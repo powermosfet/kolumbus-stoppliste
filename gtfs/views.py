@@ -25,7 +25,7 @@ class StopList(View, MultipleObjectMixin, JsonMixin):
     model = Stop
 
     def get_data(self, *args, **kwargs):
-        return [ dictify(ob) for ob in self.get_context_data(**kwargs) ]
+        return [ dictify(ob) for ob in self.get_queryset() ]
 
 # def stop_list(r):
 #     s = FlatJsonSerializer()
