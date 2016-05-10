@@ -5,6 +5,7 @@ from gtfs.models import Stop
 
 import json
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.base import View
 
 def dictify(ob):
@@ -12,7 +13,7 @@ def dictify(ob):
 
 class JsonMixin(object):
     def get(self, *args, **kwargs):
-        return HttpResponse(json.dumps(self.get_data()), content_type = 'application/json')
+        return HttpResponse(json.dumps(self.get_data(*args, **kwargs)), content_type = 'application/json')
 
 class StopDetail(View, SingleObjectMixin, JsonMixin):
     model = Stop
@@ -20,14 +21,20 @@ class StopDetail(View, SingleObjectMixin, JsonMixin):
     def get_data(self):
         return dictify(self.get_object())
 
-def stop_list(r):
-    s = FlatJsonSerializer()
-    return HttpResponse(s.serialize("json", Stop.objects.all()))
+class StopList(View, MultipleObjectMixin, JsonMixin):
+    model = Stop
 
-def stop_detail(r, stop_id):
-    s = FlatJsonSerializer()
-    try:
-        stop_ob = Stop.objects.get(pk = stop_id)
-    except ObjectDoesNotExist:
-        return HttpResponse("The stop could not be found", status_code = 404)
-    return HttpResponse(s.serialize("json", stop_ob))
+    def get_data(self, *args, **kwargs):
+        return [ dictify(ob) for ob in self.get_context_data(**kwargs) ]
+
+# def stop_list(r):
+#     s = FlatJsonSerializer()
+#     return HttpResponse(s.serialize("json", Stop.objects.all()))
+# 
+# def stop_detail(r, stop_id):
+#     s = FlatJsonSerializer()
+#     try:
+#         stop_ob = Stop.objects.get(pk = stop_id)
+#     except ObjectDoesNotExist:
+#         return HttpResponse("The stop could not be found", status_code = 404)
+#     return HttpResponse(s.serialize("json", stop_ob))
