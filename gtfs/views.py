@@ -18,7 +18,7 @@ class JsonMixin(object):
 class StopDetail(View, SingleObjectMixin, JsonMixin):
     model = Stop
 
-    def get_data(self):
+    def get_data(self, *args, **kwargs):
         return dictify(self.get_object())
 
 class StopList(View, MultipleObjectMixin, JsonMixin):
