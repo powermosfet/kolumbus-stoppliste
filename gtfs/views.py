@@ -9,7 +9,9 @@ from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.base import View
 
 def dictify(ob):
-    return { f.name: getattr(ob, f.name) for f in ob.__class__._meta.fields }
+    r = { f.name: getattr(ob, f.name) for f in ob.__class__._meta.fields }
+    r['api_url'] = '/api/gtfs/stops/{}'.format(ob.pk)
+    return r
 
 class JsonMixin(object):
     def get(self, *args, **kwargs):
