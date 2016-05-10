@@ -2,7 +2,20 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from gtfs.models import Stop
-from serializers.flatjsonserializer import FlatJsonSerializer
+
+from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.base import View
+
+def dictify(ob):
+    return { f.name: getattr(ob, f.name) for f in ob.__class__._meta.fields }
+
+class JsonMixin(object):
+    def get(self, *args, **kwargs):
+        return json.dumps(self.get_data())
+
+class StopDetail(View, SingleObjectMixin, JsonMixin):
+    def get_data(self):
+        return dictify(self.get_object())
 
 def stop_list(r):
     s = FlatJsonSerializer()
