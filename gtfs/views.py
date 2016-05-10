@@ -15,6 +15,8 @@ class JsonMixin(object):
         return json.dumps(self.get_data())
 
 class StopDetail(View, SingleObjectMixin, JsonMixin):
+    model = Stop
+
     def get_data(self):
         return dictify(self.get_object())
 
