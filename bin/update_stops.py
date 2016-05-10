@@ -20,7 +20,7 @@ if r.status_code == 200:
         iterstops = iter(stops)
         next(iterstops)
         for s in iterstops:
-            stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_url = s.split(",")
+            stop_id,stop_name,stop_desc,stop_lat,stop_lon,stop_url = s.strip().split(",")
             try: 
                 stop = Stop.objects.get(pk = int(stop_id))
             except ObjectDoesNotExist:
