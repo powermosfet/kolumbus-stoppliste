@@ -1,12 +1,9 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.core.exceptions import ObjectDoesNotExist
 from gtfs.models import Stop
-
-import json
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.base import View
+import json
 
 def dictify(ob):
     r = { f.name: getattr(ob, f.name) for f in ob.__class__._meta.fields }
@@ -28,15 +25,3 @@ class StopList(View, MultipleObjectMixin, JsonMixin):
 
     def get_data(self, *args, **kwargs):
         return [ dictify(ob) for ob in self.get_queryset() ]
-
-# def stop_list(r):
-#     s = FlatJsonSerializer()
-#     return HttpResponse(s.serialize("json", Stop.objects.all()))
-# 
-# def stop_detail(r, stop_id):
-#     s = FlatJsonSerializer()
-#     try:
-#         stop_ob = Stop.objects.get(pk = stop_id)
-#     except ObjectDoesNotExist:
-#         return HttpResponse("The stop could not be found", status_code = 404)
-#     return HttpResponse(s.serialize("json", stop_ob))
