@@ -12,7 +12,7 @@ def dictify(ob):
 
 class JsonMixin(object):
     def get(self, *args, **kwargs):
-        return json.dumps(self.get_data())
+        return HttpResponse(json.dumps(self.get_data()))
 
 class StopDetail(View, SingleObjectMixin, JsonMixin):
     model = Stop
