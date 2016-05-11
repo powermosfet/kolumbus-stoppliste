@@ -20,7 +20,7 @@ class JsonMixin(object):
 class GetView(View):
     def dispatch(self, r, *args, **kwargs):
         if r.method != 'GET':
-            return HttpResponse('Only GET requests are allowed', status_code = 403)
+            return HttpResponse('Only GET requests are allowed', status = 403)
         return super(GetView, self).dispatch(r, *args, **kwargs)
 
 class StopDetail(GetView, SingleObjectMixin, JsonMixin):

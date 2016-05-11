@@ -25,8 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '4zvak&)^!^pr!&7v$sf6qu=0*s%-61
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('ENV', 'DEV') != 'PROD')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [ '127.0.0.1', 'kolumbus-stoppliste.herokuapp.com' ]
 
 # Application definition
 
@@ -35,7 +34,7 @@ INSTALLED_APPS = [
     # 'django.contrib.auth',
     'django.contrib.contenttypes',
     # 'django.contrib.sessions',
-    'django.contrib.messages',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
     'gtfs.apps.GtfsConfig',
 ]
@@ -47,7 +46,7 @@ MIDDLEWARE_CLASSES = [
     # 'django.middleware.csrf.CsrfViewMiddleware',
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -62,8 +61,8 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                # 'django.contrib.auth.context_processors.auth',
+                # 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
