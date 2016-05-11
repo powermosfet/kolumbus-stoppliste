@@ -23,5 +23,17 @@ class StopDetail(View, SingleObjectMixin, JsonMixin):
 class StopList(View, MultipleObjectMixin, JsonMixin):
     model = Stop
 
+    def filter(self, stops):
+        return stops
+
     def get_data(self, *args, **kwargs):
-        return [ dictify(ob) for ob in self.get_queryset() ]
+        return [ dictify(ob) for ob in self.filter(self.get_queryset()) ]
+
+class ClosestStopList(StopList):
+    def add_distance(stop):
+        pos = tuple(self.kwargs['coords'].split(','))
+        stop.distance = distance.great_circle(pos, (stop.stop_lat, stop.stop_lon)).km
+        return pos
+    
+    def filter(self, stops):
+        return sorted(map(add_distance, stops), key = lambda s: s.distance)[:5]
