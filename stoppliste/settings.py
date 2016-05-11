@@ -20,10 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY'] or '4zvak&)^!^pr!&7v$sf6qu=0*s%-61ia1noo68t1)na%15^u2d'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '4zvak&)^!^pr!&7v$sf6qu=0*s%-61ia1noo68t1)na%15^u2d')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ['ENV'] != 'PROD')
+DEBUG = (os.environ.get('ENV', 'DEV') != 'PROD')
 
 ALLOWED_HOSTS = []
 
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     # 'django.contrib.auth',
     'django.contrib.contenttypes',
     # 'django.contrib.sessions',
-    # 'django.contrib.messages',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
     'gtfs.apps.GtfsConfig',
 ]
@@ -47,7 +47,7 @@ MIDDLEWARE_CLASSES = [
     # 'django.middleware.csrf.CsrfViewMiddleware',
     # 'django.contrib.auth.middleware.AuthenticationMiddleware',
     # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
