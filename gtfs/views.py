@@ -9,6 +9,8 @@ import json
 def dictify(ob):
     r = { f.name: getattr(ob, f.name) for f in ob.__class__._meta.fields }
     r['api_url'] = '/api/gtfs/stops/{}'.format(ob.pk)
+    if 'distance' in dir(ob):
+        r['distance'] = ob.distance
     return r
 
 class JsonMixin(object):
