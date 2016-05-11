@@ -17,13 +17,19 @@ class JsonMixin(object):
     def get(self, *args, **kwargs):
         return HttpResponse(json.dumps(self.get_data(*args, **kwargs)), content_type = 'application/json')
 
-class StopDetail(View, SingleObjectMixin, JsonMixin):
+class GetView(View):
+    def dispatch(self, r, *args, **kwargs):
+        if r.method != 'GET':
+            return HttpResponse(status_code = 403)
+        return super(GetView, self).dispatch(r, *args, **kwargs)
+
+class StopDetail(GetView, SingleObjectMixin, JsonMixin):
     model = Stop
 
     def get_data(self, *args, **kwargs):
         return dictify(self.get_object())
 
-class StopList(View, MultipleObjectMixin, JsonMixin):
+class StopList(GetView, MultipleObjectMixin, JsonMixin):
     model = Stop
 
     def filter(self, stops):
