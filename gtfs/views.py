@@ -34,7 +34,7 @@ class ClosestStopList(StopList):
     def add_distance(self, stop):
         pos = tuple(self.kwargs['coords'].split(','))
         stop.distance = distance.great_circle(pos, (stop.stop_lat, stop.stop_lon)).km
-        return pos
+        return stop
     
     def filter(self, stops):
         return sorted(map(self.add_distance, stops), key = lambda s: s.distance)[:5]
