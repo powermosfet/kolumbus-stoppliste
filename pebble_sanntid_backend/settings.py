@@ -25,7 +25,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '4zvak&)^!^pr!&7v$sf6qu=0*s%-61
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.environ.get('ENV', 'DEV') != 'PROD')
 
-ALLOWED_HOSTS = [ '127.0.0.1', 'kolumbus-stoppliste.herokuapp.com' ]
+ALLOWED_HOSTS = [ '127.0.0.1', 'pebble-sanntid-backend.herokuapp.com' ]
 
 # Application definition
 
