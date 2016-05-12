@@ -1,1 +1,1 @@
-web: gunicorn stoppliste.wsgi --log-file -
+web: gunicorn pebble_sanntid_backend.wsgi --log-file -
