@@ -21,7 +21,12 @@ class GetView(View):
     def dispatch(self, r, *args, **kwargs):
         if r.method != 'GET':
             return HttpResponse('Only GET requests are allowed', status = 403)
-        return super(GetView, self).dispatch(r, *args, **kwargs)
+        response = super(GetView, self).dispatch(r, *args, **kwargs)
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Methods"] = "GET"
+        response["Access-Control-Max-Age"] = "1000"
+        response["Access-Control-Allow-Headers"] = "*"
+        return response
 
 class StopDetail(GetView, SingleObjectMixin, JsonMixin):
     model = Stop
