@@ -22,10 +22,10 @@ def siri(request, *args, **kwargs):
     c = Client(config.url)
     info = c.factory.create('ns5:ServiceRequestInfo')
     request = c.factory.create('ns5:StopMonitoringRequest')
-    info.RequestTimestamp = datetime.now()
+    info.RequestTimestamp = request.GET.get(timestamp, datetime.now())
     info.RequestorRef = '1234'
-    request.MonitoringRef = kwargs.get('stop_id', '')
-    request.RequestTimestamp = datetime.now()
+    request.MonitoringRef = request.GET.get('stop_id', '')
+    request.RequestTimestamp = request.GET.get(timestamp, datetime.now())
     request._version = '1.4'
     try:
         result = c.service.GetStopMonitoring(info, request)
