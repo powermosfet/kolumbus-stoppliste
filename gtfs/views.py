@@ -45,7 +45,7 @@ class StopList(GetView, MultipleObjectMixin, JsonMixin):
 
 class ClosestStopList(StopList):
     def add_distance(self, stop):
-        pos = tuple(self.kwargs['coords'].split(','))
+        pos = tuple(self.args['coords'].split(','))
         stop.distance = distance.great_circle(pos, (stop.stop_lat, stop.stop_lon)).m
         return stop
     
