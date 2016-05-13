@@ -1,6 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render
-from suds import WebError
+from suds import WebFault
 from suds.client import Client
 import config
 
@@ -13,7 +13,10 @@ def siri(request, *args, **kwargs):
     request.MonitoringRef = kwargs.get('stop_id', '')
     request.RequestTimestamp = datetime.now()
     request._version = '1.4'
-    result = c.GetStopMonitoring(info, request)
+    try:
+        result = c.GetStopMonitoring(info, request)
+    except WebFault:
+        return HttpResponse(status = 500)
     if result.Answer.StopMonitoringDelivery:
         json_data = json.dumps([
             {
