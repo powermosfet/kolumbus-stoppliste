@@ -2,7 +2,7 @@ from datetime import datetime
 from django.shortcuts import render
 from suds import WebFault
 from suds.client import Client
-import config
+import config, json
 
 def siri(request, *args, **kwargs):
     c = Client(config.url)
