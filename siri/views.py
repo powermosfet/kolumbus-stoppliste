@@ -14,7 +14,7 @@ def siri(request, *args, **kwargs):
     request.RequestTimestamp = datetime.now()
     request._version = '1.4'
     try:
-        result = c.GetStopMonitoring(info, request)
+        result = c.service.GetStopMonitoring(info, request)
     except WebFault:
         return HttpResponse(status = 500)
     if result.Answer.StopMonitoringDelivery:
