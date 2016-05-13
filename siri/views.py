@@ -18,14 +18,14 @@ def dictify(d, v):
         r['aimed_departure_time'] = r['aimed_departure_time'].isoformat()
     return r
 
-def siri(request, *args, **kwargs):
+def siri(r, *args, **kwargs):
     c = Client(config.url)
     info = c.factory.create('ns5:ServiceRequestInfo')
     request = c.factory.create('ns5:StopMonitoringRequest')
-    info.RequestTimestamp = request.GET.get(timestamp, datetime.now())
+    info.RequestTimestamp = r.GET.get(timestamp, datetime.now())
     info.RequestorRef = '1234'
-    request.MonitoringRef = request.GET.get('stop_id', '')
-    request.RequestTimestamp = request.GET.get(timestamp, datetime.now())
+    request.MonitoringRef = r.GET.get('stop_id', '')
+    request.RequestTimestamp = r.GET.get(timestamp, datetime.now())
     request._version = '1.4'
     try:
         result = c.service.GetStopMonitoring(info, request)
