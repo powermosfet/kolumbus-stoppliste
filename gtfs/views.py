@@ -14,7 +14,8 @@ def dictify(ob):
     return r
 
 class JsonMixin(object):
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        self.request = request
         return HttpResponse(json.dumps(self.get_data(*args, **kwargs)), content_type = 'application/json')
 
 class GetView(View):
@@ -45,7 +46,7 @@ class StopList(GetView, MultipleObjectMixin, JsonMixin):
 
 class ClosestStopList(StopList):
     def add_distance(self, stop):
-        pos = tuple(self.GET['coords'].split(','))
+        pos = tuple(self.request.GET['coords'].split(','))
         stop.distance = distance.great_circle(pos, (stop.stop_lat, stop.stop_lon)).m
         return stop
     
