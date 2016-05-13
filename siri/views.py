@@ -1,8 +1,22 @@
 from datetime import datetime
-from django.shortcuts import render
+from django.http import HttpResponse
 from suds import WebFault
 from suds.client import Client
 import config, json
+
+def dictify(d, v):
+    r = {
+            'expected_departure_time': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'ExpectedDepartureTime', None),
+            'aimed_departure_time': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'AimedDepartureTime', None),
+            'published_line_name': v.MonitoredVehicleJourney.PublishedLineName,
+            'destination_display': v.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
+            'departure_status': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'DepartureStatus', 'unknown'),
+        }
+    if r['expected_departure_time']:
+        r['expected_departure_time'] = r['expected_departure_time'].isoformat()
+    if r['aimed_departure_time']:
+        r['aimed_departure_time'] = r['aimed_departure_time'].isoformat()
+    return r
 
 def siri(request, *args, **kwargs):
     c = Client(config.url)
@@ -18,14 +32,9 @@ def siri(request, *args, **kwargs):
     except WebFault:
         return HttpResponse(status = 500)
     if result.Answer.StopMonitoringDelivery:
-        json_data = json.dumps([
-            {
-                'expected_departure_time': v.MonitoredVehicleJourney.MonitoredCall.ExpectedDepartureTime,
-                'published_line_name': v.MonitoredVehicleJourney.PublishedLineName,
-                'destination_display': v.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
-                'departure_status': v.MonitoredVehicleJourney.MonitoredCall.DepartureStatus,
-            }
+        print result.Answer
+        json_data = json.dumps([ dictify(d, v)
             for d in result.Answer.StopMonitoringDelivery
-            for v in d.MonitoredStopVisit
+            for v in getattr(d, 'MonitoredStopVisit', [])
         ])
         return HttpResponse(json_data, content_type = 'application/json')
