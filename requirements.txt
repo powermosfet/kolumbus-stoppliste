@@ -4,4 +4,5 @@ geopy==1.11.0
 gunicorn==19.4.5
 psycopg2==2.5.2
 requests==2.10.0
+suds==0.4
 whitenoise==3.0
