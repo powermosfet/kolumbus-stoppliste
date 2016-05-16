@@ -1,6 +1,6 @@
 # pebble-sanntid-backend
 
-bakcend api for pebble sanntid, a pebble app that shows realtime info about busses from Kolumbus
+bakcend api for [pebble sanntid](https://github.com/powermosfet/pebble-sanntid), a pebble app that shows realtime info about busses from Kolumbus
 
 ## Endpoints
 
