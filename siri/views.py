@@ -32,7 +32,6 @@ def siri(r, *args, **kwargs):
     except WebFault:
         return HttpResponse(status = 500)
     if result.Answer.StopMonitoringDelivery:
-        print result.Answer
         json_data = json.dumps([ dictify(d, v)
             for d in result.Answer.StopMonitoringDelivery
             for v in getattr(d, 'MonitoredStopVisit', [])
