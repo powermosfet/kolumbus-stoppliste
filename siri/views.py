@@ -16,6 +16,8 @@ def dictify(d, v):
         r['expected_departure_time'] = r['expected_departure_time'].isoformat()
     if r['aimed_departure_time']:
         r['aimed_departure_time'] = r['aimed_departure_time'].isoformat()
+        if r['aimed_departure_time'][-1] != 'Z': #aimed times are given in UTC timezone
+            r['aimed_departure_time'] += 'Z'
     return r
 
 def siri(r, *args, **kwargs):
