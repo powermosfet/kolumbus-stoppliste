@@ -9,7 +9,7 @@ def dictify(d, v):
             'expected_departure_time': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'ExpectedDepartureTime', None),
             'aimed_departure_time': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'AimedDepartureTime', None),
             'published_line_name': v.MonitoredVehicleJourney.PublishedLineName,
-            'destination_display': v.MonitoredVehicleJourney.MonitoredCall.DestinationDisplay,
+            'destination_display': v.MonitoredVehicleJourney.DestinationName,
             'departure_status': getattr(v.MonitoredVehicleJourney.MonitoredCall, 'DepartureStatus', 'unknown'),
         }
     if r['expected_departure_time']:
