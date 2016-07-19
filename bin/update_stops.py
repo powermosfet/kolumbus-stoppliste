@@ -1,5 +1,5 @@
 import os, django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "stoppliste.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "pebble_sanntid_backend.settings")
 django.setup()
 
 import io, requests, zipfile
